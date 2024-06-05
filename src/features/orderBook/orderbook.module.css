@@ -1,0 +1,61 @@
+.orderBook{
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+    background-color: #141413;
+    color: #ffffff99;
+}
+.orderBook h3{
+    margin: 0px;
+    padding: 10px;
+    background-color: #080808;
+    font-size: medium;
+}
+.lists{
+    height: 300px;
+    overflow-y: auto;
+    padding: 0px;
+    margin: 0px;
+}
+.lists > div{
+    scrollbar-width: 20px;
+}
+.lists > div::-webkit-scrollbar{
+width: 20px;
+}
+.lists li,.orderBookHeader{
+    display: flex;
+    box-shadow: 0px 3px 6px #00000029;
+    width: fit-content;
+    font-size: small;
+}
+.lists li > span,.orderBookHeader > span {
+    padding: 10px 20px;
+    width: 75px;
+    text-align: center;
+}
+.bidItem,.askItem{
+    color: #db5151;
+    font-weight: bold;
+}
+.askItem{
+    color: #51db58;
+}
+.orderBookHeader{
+    color: #555;
+}
+.orderBookAggregate{
+display: flex;
+justify-content: space-between;
+padding: 10px 20px;
+background-color: #000;
+align-items: center;
+}
+.orderBookAggregate button{
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0px;
+    box-shadow: 0px 3px 6px #00000029;
+    margin-inline: 2px;
+}

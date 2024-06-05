@@ -1,0 +1,68 @@
+
+body{
+  background-color: #00000010;
+}
+.topWrap{
+  display: flex;
+  margin-block: 20px;
+  width: 96%;
+  margin-inline:auto;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 15px;
+  justify-content: space-between;
+}
+.topWrap > h1{
+  margin: 0px;
+  margin-block: auto;
+}
+.wrapper,.ChartWrap {
+  display: flex;
+  max-width: 98vw;
+  margin-inline: auto;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.bidAskChart{
+  background-color: white;
+  padding: 10px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.ChartWrap{
+  min-height: 545px;
+  margin-block: 20px;
+}
+#tradingViewScript{
+  min-height: 571px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.leftChild {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.charts{
+  max-width: 97%;
+  display: flex;
+  border-radius: 15px;
+  border: 5px solid white;
+}
+.charts > div{
+  max-width: 50%;
+}
+.chart-palceHolder {
+  width: 95%;
+  height: 550px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@media screen and (max-width: 600px) {
+  .wrapper {
+    flex-direction: column;
+    max-width: 100vw;
+  }
+}
