@@ -1,29 +1,39 @@
 // OrderBook.tsx
+import type { SelectChangeEvent } from "@mui/material"
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import type React from "react"
 import { Virtuoso } from "react-virtuoso"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import type { RootState } from "../../app/store"
+import type { AskAggregates, BidAggregates } from "./orderBook.types"
 import { setAggregate } from "./orderBookSlice"
-import cssClasses from './orderbook.module.css'
-  const renderAggregates = (
-    aggregates: { price: string; size: string }[],
-    type: "bid" | "ask",
-  ) => (
+import cssClasses from "./orderbook.module.css"
+
+const renderAggregates = (
+  aggregates: BidAggregates | AskAggregates,
+  type: "bids" | "asks",
+) => {
+  const keys =
+    type === "bids"
+      ? Object.keys(aggregates.bids)
+      : Object.keys(aggregates.asks)
+  return (
     <ul className={cssClasses.lists}>
       <Virtuoso
-        style={{ height: "300px", overflowX: "hidden" }} // Set height as per your design
-        totalCount={aggregates.length}
+        style={{ height: "300px", overflowX: "hidden" }}
+        totalCount={keys.length}
         itemContent={index => {
-          const item = aggregates[index]
+          const key = keys[index]
+          const item = aggregates[type][key]
           return (
             <li key={index}>
-              <span>{item[1]}</span>
+              <span>{item}</span>
               <span
                 className={
-                  type === "bid" ? cssClasses.bidItem : cssClasses.askItem
+                  type === "bids" ? cssClasses.bidItem : cssClasses.askItem
                 }
               >
-                $ {item[0]}
+                $ {key}
               </span>
               <span>-</span>
             </li>
@@ -33,24 +43,14 @@ import cssClasses from './orderbook.module.css'
       />
     </ul>
   )
+}
 const OrderBook: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { allAsks ,allBids,aggregate} = useAppSelector((state: RootState) => state.orderBook)
-  console.log("render")
-  const onButtonClick = (type: "add"|"sub") =>{
-    switch (type) {
-      case "add":
-        const data=(aggregate+0.1).toFixed(1)
-        dispatch(setAggregate(Number(data)))
-        break
-      case "sub":
-        const agg = aggregate===0?0:(aggregate - 0.1).toFixed(1)
-        dispatch(setAggregate(Number(agg)))
-        break
-
-      default:
-        break
-    }
+  const { allAsksObj, allBidsObj, aggregate } = useAppSelector(
+    (state: RootState) => state.orderBook,
+  )
+  const handleAggregateChange = (event: SelectChangeEvent<Number>) => {
+    dispatch(setAggregate(Number(event.target.value)))
   }
 
   return (
@@ -62,16 +62,25 @@ const OrderBook: React.FC = () => {
           <span>Price(USD)</span>
           <span>My size</span>
         </div>
-        {renderAggregates(allBids,"bid")}
+        {renderAggregates(allBidsObj, "bids")}
         <div className={cssClasses.orderBookAggregate}>
           <div>Aggregation</div>
-          <span>{aggregate}</span>
-          <div>
-            <button onClick={() => onButtonClick("sub")}>-</button>
-            <button onClick={() => onButtonClick("add")}>+</button>
-          </div>
+          <FormControl sx={{ m: 1, minWidth: 75 }} size="small">
+            <InputLabel id="demo-select-small-label">Aggr.</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={aggregate}
+              label="Aggregate"
+              onChange={handleAggregateChange}
+            >
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="0.1">0.1</MenuItem>
+              <MenuItem value="0.01">0.01</MenuItem>
+            </Select>
+          </FormControl>
         </div>
-        {renderAggregates(allAsks,"ask")}
+        {renderAggregates(allAsksObj, "asks")}
       </div>
     </div>
   )

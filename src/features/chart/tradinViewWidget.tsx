@@ -3,12 +3,14 @@ import { useEffect, useRef, memo } from "react"
 
 interface TradingViewWidgetProps {
   coinPair?: string
+  theme?: "dark" | "light"
 }
 
 const TradingViewWidget: React.FC<TradingViewWidgetProps> = ({
   coinPair = "BTC-USD",
+  theme = "dark",
 }) => {
-  coinPair = coinPair.replace(/-/g, "") // Remove hyphens from coinPair
+  coinPair = coinPair.replace(/-/g, "")
 
   const container = useRef<HTMLDivElement>(null)
 
@@ -27,7 +29,7 @@ const TradingViewWidget: React.FC<TradingViewWidgetProps> = ({
       symbol: coinPair,
       interval: "D",
       timezone: "Etc/UTC",
-      theme: "light",
+      theme: theme,
       style: "1",
       locale: "en",
       enable_publishing: false,
@@ -42,7 +44,7 @@ const TradingViewWidget: React.FC<TradingViewWidgetProps> = ({
 
   useEffect(() => {
     addScript()
-  }, [coinPair])
+  }, [coinPair, theme])
 
   return (
     <div

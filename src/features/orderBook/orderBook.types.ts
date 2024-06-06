@@ -10,9 +10,22 @@ export interface Change {
 }
 
 export interface OrderBookState {
-  allBids: Order[]
-  allAsks: Order[]
   largestBid: Order | null
   largestAsk: Order | null
   aggregate: Number
+  allBidsObj: BidAggregates
+  allAsksObj: AskAggregates
 }
+export interface AggregateData {
+  [price: string]: string
+}
+
+export interface BidAggregates {
+  bids: AggregateData
+  total: number
+}
+export interface AskAggregates {
+  asks: AggregateData
+  total: number
+}
+export type Aggregates = BidAggregates | AskAggregates

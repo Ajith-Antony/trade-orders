@@ -1,61 +1,77 @@
-.orderBook{
-    display: flex;
-    flex-direction: column;
-    max-width: fit-content;
-    background-color: #141413;
-    color: #ffffff99;
+.orderBook {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding-bottom: 25px;
 }
-.orderBook h3{
-    margin: 0px;
-    padding: 10px;
-    background-color: #080808;
-    font-size: medium;
+.orderBook h3 {
+  margin: 0px;
+  padding: 10px;
+  background-color: var(--primary-dark);
+  font-size: medium;
 }
-.lists{
-    height: 300px;
-    overflow-y: auto;
-    padding: 0px;
-    margin: 0px;
+.lists {
+  height: 300px;
+  overflow-y: auto;
+  padding: 0px;
+  margin: 0px;
 }
-.lists > div{
-    scrollbar-width: 20px;
+.lists > div {
+  scrollbar-width: 20px;
 }
-.lists > div::-webkit-scrollbar{
-width: 20px;
+.lists > div::-webkit-scrollbar {
+  width: 20px;
 }
-.lists li,.orderBookHeader{
-    display: flex;
-    box-shadow: 0px 3px 6px #00000029;
-    width: fit-content;
-    font-size: small;
+.lists li,
+.orderBookHeader {
+  display: flex;
+  box-shadow: 0px 3px 6px #00000029;
+  width: fit-content;
+  font-size: small;
 }
-.lists li > span,.orderBookHeader > span {
-    padding: 10px 20px;
-    width: 75px;
-    text-align: center;
+.lists li > span,
+.orderBookHeader > span {
+  padding: 10px 20px;
+  width: 75px;
+  text-align: center;
 }
-.bidItem,.askItem{
-    color: #db5151;
-    font-weight: bold;
+.bidItem,
+.askItem {
+  color: #51db58;
+  font-weight: bold;
 }
-.askItem{
-    color: #51db58;
+.askItem {
+  color: #db5151;
 }
-.orderBookHeader{
-    color: #555;
+.orderBookHeader {
+  color: #555;
 }
-.orderBookAggregate{
-display: flex;
-justify-content: space-between;
-padding: 10px 20px;
-background-color: #000;
-align-items: center;
+.orderBookAggregate {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+  background-color: var(--primary-dark);
+  align-items: center;
+  color: var(--text-color);
 }
-.orderBookAggregate button{
-    padding: 5px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 0px;
-    box-shadow: 0px 3px 6px #00000029;
-    margin-inline: 2px;
+.orderBookAggregate button {
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 0px;
+  box-shadow: 0px 3px 6px #00000029;
+  margin-inline: 2px;
+}
+@media screen and (max-width: 600px) {
+  .orderBook{
+    max-width: 100vw;
+    width: 100vw;
+    margin-inline: auto;
+    border-radius: 10px;
+  }
+ .lists li ,.orderBookHeader {
+  width: 100vw;
+ }
 }

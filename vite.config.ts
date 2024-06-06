@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true,
+    host: "0.0.0.0",
   },
   test: {
     globals: true,
