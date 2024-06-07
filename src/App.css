@@ -22,16 +22,14 @@ code {
 
 .topWrap {
   display: flex;
-  margin-block: 20px;
-  width: 96%;
+  margin-bottom: 20px;
   margin-inline: auto;
   background-color: var(--primary-color);
   color: var(--text-color);
   padding: 10px 20px;
-  border-radius: 15px;
   justify-content: space-between;
 }
-.topWrap > div{
+.topWrap > div {
   display: flex;
   align-items: center;
 }
@@ -54,11 +52,11 @@ code {
   border-bottom-left-radius: 15px;
 }
 .ChartWrap {
-  min-height: 545px;
+  min-height: 500px;
   margin-block: 20px;
 }
 #tradingViewScript {
-  min-height: 571px;
+  min-height: 490px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -80,7 +78,7 @@ code {
 }
 .chart-palceHolder {
   width: 95%;
-  height: 550px;
+  height: 500px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -89,7 +87,8 @@ code {
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline,
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root svg,
 .css-kszx2i-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root svg,
-.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root,.css-jedpe8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root,
+.css-jedpe8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   border-color: var(--text-color) !important;
   color: var(--text-color) !important;
@@ -101,34 +100,38 @@ code {
     max-width: 100vw;
     padding-bottom: 20px;
   }
-  .topWrap{
+  .topWrap {
     flex-wrap: wrap;
     margin: 0px;
     border-radius: 0px;
     max-width: 100vw;
   }
-  .leftChild{
+  .leftChild {
     gap: 0px;
     margin-bottom: 10px;
   }
-  .charts{
+  .charts {
     flex-direction: column;
-    padding: 12px;
-    max-width: 100vw;
+    margin: 0px 10px;
+    max-width: calc(100vw - 20px);
     width: 100vw;
     border: 0px;
-    border-radius: 0px;
+    background-color: transparent;
+    gap: 10px;
   }
-  .charts > div{
-    max-width: 100vw;
-    border-radius: 0px;
-    margin-inline: auto;
+  .charts > div {
+    max-width: calc(100vw - 20px);
     height: 500px !important;
     min-height: 300px !important;
   }
-  #tradingViewScript{
-    min-height: 300px !important;
-    border-radius: 0px;
+  .bidAskChart {
+    width: 100% !important;
+    padding: 10px 0px;
+    margin: 0px;
+    border-radius: 15px;
   }
- 
+  #tradingViewScript {
+    min-height: 300px !important;
+    border-radius: 15px;
+  }
 }

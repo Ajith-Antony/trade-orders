@@ -4,16 +4,38 @@
   max-width: fit-content;
   background-color: var(--primary-color);
   color: var(--text-color);
-  padding-bottom: 25px;
+  padding-bottom: 20px;
+  border-radius: 15px;
 }
 .orderBook h3 {
   margin: 0px;
   padding: 10px;
   background-color: var(--primary-dark);
   font-size: medium;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.layouts {
+  display: flex;
+  gap: 5px;
+  list-style: none;
+  margin: 0px;
+  margin-right: 10px;
+}
+.layouts img {
+  height: 20px;
+  width: 20px;
+  opacity: 0.5;
+  cursor: pointer;
+  background-color: var(--primary-dark);
+}
+.layouts > .selectedList > img {
+  opacity: 1;
 }
 .lists {
-  height: 300px;
+  height: 252.5px;
   overflow-y: auto;
   padding: 0px;
   margin: 0px;
@@ -36,6 +58,9 @@
   padding: 10px 20px;
   width: 75px;
   text-align: center;
+}
+.listsFull {
+  height: 505px;
 }
 .bidItem,
 .askItem {
@@ -65,13 +90,15 @@
   margin-inline: 2px;
 }
 @media screen and (max-width: 600px) {
-  .orderBook{
-    max-width: 100vw;
+  .orderBook {
+    max-width: calc(100vw - 20px);
     width: 100vw;
-    margin-inline: auto;
+    margin: 0px 10px;
     border-radius: 10px;
   }
- .lists li ,.orderBookHeader {
-  width: 100vw;
- }
+  .lists li > span,
+  .orderBookHeader > span {
+    font-size: 12px;
+    padding: 10px;
+  }
 }

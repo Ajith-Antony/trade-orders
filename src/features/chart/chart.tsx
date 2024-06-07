@@ -34,7 +34,7 @@ const ChartComponent: React.FC = () => {
 
   return chartData.length ? (
     <>
-      <ResponsiveContainer width="95%" height={550} className="bidAskChart">
+      <ResponsiveContainer width="95%" height={480} className="bidAskChart">
         <LineChart data={chartData}>
           <XAxis dataKey="time" tickFormatter={tickFormatter} />
           <YAxis

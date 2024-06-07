@@ -21,8 +21,8 @@ const chartSlice = createSlice({
   reducers: {
     setChartData(state, action: PayloadAction<ChartDataPayload>) {
       const chartData =
-        state.chartData.length >= 25
-          ? state.chartData.slice(10, 25)
+        state.chartData.length >= 15
+          ? state.chartData.slice(8, 15)
           : state.chartData
       state.chartData = [...chartData, action.payload]
     },

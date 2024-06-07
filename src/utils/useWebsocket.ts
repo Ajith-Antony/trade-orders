@@ -37,7 +37,7 @@ const useWebSocket = (url: string, product_id: string | null) => {
   )
 
   const debouncedDispatchChanges = useCallback(
-    debounce(data => dispatch(updateOrderBook(data)), 200),
+    debounce(data => dispatch(updateOrderBook(data)), 150),
     [dispatch],
   )
 
@@ -66,12 +66,16 @@ const useWebSocket = (url: string, product_id: string | null) => {
           asksData: bidOrAskData = {},
           bidsData: bidOrAskData = {}
         bids.forEach((element: [string, string]) => {
-          const bidPrice = element[0]
+          const bidPrice = (
+            Math.floor(parseFloat(element[0]) / aggregate) * aggregate
+          ).toFixed(2)
           bidsData[bidPrice] = element[1]
           bidsTotal += Number(element[1])
         })
         asks.forEach((element: [string, string]) => {
-          const askPrice = element[0]
+          const askPrice = (
+            Math.floor(parseFloat(element[0]) / aggregate) * aggregate
+          ).toFixed(2)
           asksData[askPrice] = element[1]
           asksTotal += Number(element[1])
         })

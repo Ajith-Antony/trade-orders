@@ -18,28 +18,32 @@ const orderBookSlice = createSlice({
       const changes = action.payload
       const newAsks = { ...state.allAsksObj.asks }
       const newBids = { ...state.allBidsObj.bids }
+      const { aggregate } = state
 
       changes.forEach((item: [any, any, any]) => {
         const [type, price, size] = item
+        const aggregatedPrice = (
+          Math.floor(parseFloat(price) / aggregate) * aggregate
+        ).toFixed(2)
         if (type === "sell") {
           if (size <= 0) {
-            delete newAsks[price]
+            delete newAsks[aggregatedPrice]
             state.allAsksObj.total = state.allAsksObj.total - Number(size)
           } else {
             state.allAsksObj.total = state.allAsksObj.total + Number(size)
-            newAsks[price] = newAsks[price]
-              ? (Number(newAsks[price]) + Number(size)).toFixed(8)
-              : newAsks[price]
+            newAsks[aggregatedPrice] = newAsks[aggregatedPrice]
+              ? (Number(newAsks[aggregatedPrice]) + Number(size)).toFixed(8)
+              : Number(size).toFixed(8)
           }
         } else if (type === "buy") {
           if (size <= 0) {
-            delete newBids[price]
+            delete newBids[aggregatedPrice]
             state.allBidsObj.total = state.allBidsObj.total - Number(size)
           } else {
             state.allBidsObj.total = state.allBidsObj.total + Number(size)
-            newBids[price] = newBids[price]
-              ? (Number(newBids[price]) + Number(size)).toFixed(8)
-              : newBids[price]
+            newBids[aggregatedPrice] = newBids[aggregatedPrice]
+              ? (Number(newBids[aggregatedPrice]) + Number(size)).toFixed(8)
+              : Number(size).toFixed(8)
           }
         }
       })
@@ -49,6 +53,27 @@ const orderBookSlice = createSlice({
     },
     setAggregate(state, action: PayloadAction<Number>) {
       state.aggregate = action.payload
+      let newAggregate = action.payload
+      const aggregatedAsks: { [key: string]: string } = {}
+      Object.entries(state.allAsksObj.asks).forEach(([price, size]) => {
+        const aggregatedPrice = (
+          Math.floor(parseFloat(price) / newAggregate) * newAggregate
+        ).toFixed(2)
+        aggregatedAsks[aggregatedPrice] = aggregatedAsks[aggregatedPrice]
+          ? (Number(aggregatedAsks[aggregatedPrice]) + Number(size)).toFixed(8)
+          : Number(size).toFixed(8)
+      })
+      state.allAsksObj.asks = aggregatedAsks
+      const aggregatedBids: { [key: string]: string } = {}
+      Object.entries(state.allBidsObj.bids).forEach(([price, size]) => {
+        const aggregatedPrice = (
+          Math.floor(parseFloat(price) / newAggregate) * newAggregate
+        ).toFixed(2)
+        aggregatedBids[aggregatedPrice] = aggregatedBids[aggregatedPrice]
+          ? (Number(aggregatedBids[aggregatedPrice]) + Number(size)).toFixed(8)
+          : Number(size).toFixed(8)
+      })
+      state.allBidsObj.bids = aggregatedBids
     },
     setAllBidsObj(state, action) {
       state.allBidsObj = action.payload
