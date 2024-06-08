@@ -4,7 +4,7 @@
   max-width: fit-content;
   background-color: var(--primary-color);
   color: var(--text-color);
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   border-radius: 15px;
 }
 .orderBook h3 {
@@ -41,16 +41,16 @@
   margin: 0px;
 }
 .lists > div {
-  scrollbar-width: 20px;
+  scrollbar-width: 0px;
 }
 .lists > div::-webkit-scrollbar {
-  width: 20px;
+  width: 0px;
 }
 .lists li,
 .orderBookHeader {
   display: flex;
   box-shadow: 0px 3px 6px #00000029;
-  width: fit-content;
+  width: 100%;
   font-size: small;
 }
 .lists li > span,
@@ -61,6 +61,11 @@
 }
 .listsFull {
   height: 505px;
+}
+.listsLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .bidItem,
 .askItem {
@@ -100,5 +105,6 @@
   .orderBookHeader > span {
     font-size: 12px;
     padding: 10px;
+    width: 30%;
   }
 }

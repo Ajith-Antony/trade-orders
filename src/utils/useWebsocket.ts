@@ -5,8 +5,11 @@ import type { RootState } from "../app/store"
 import { setChartData } from "../features/chart/chartSlice"
 import type { Order } from "../features/orderBook/orderBook.types"
 import {
+  setAggregatedAsksObj,
+  setAggregatedBidsObj,
   setAllAsksObj,
   setAllBidsObj,
+  setDataLoading,
   setLargestAsk,
   setLargestBid,
   updateOrderBook,
@@ -64,24 +67,35 @@ const useWebSocket = (url: string, product_id: string | null) => {
         let bidsTotal = 0,
           asksTotal = 0,
           asksData: bidOrAskData = {},
-          bidsData: bidOrAskData = {}
+          bidsData: bidOrAskData = {},
+          aggregatedAsksData: bidOrAskData = {},
+          aggregatedBidsData: bidOrAskData = {}
         bids.forEach((element: [string, string]) => {
-          const bidPrice = (
+          const aggregatedBidPrice = (
             Math.floor(parseFloat(element[0]) / aggregate) * aggregate
           ).toFixed(2)
-          bidsData[bidPrice] = element[1]
+          aggregatedBidsData[aggregatedBidPrice] = element[1]
+          bidsData[element[0]] = element[1]
           bidsTotal += Number(element[1])
         })
         asks.forEach((element: [string, string]) => {
-          const askPrice = (
+          const aggregatedAskPrice = (
             Math.floor(parseFloat(element[0]) / aggregate) * aggregate
           ).toFixed(2)
-          asksData[askPrice] = element[1]
+          aggregatedAsksData[aggregatedAskPrice] = element[1]
+          asksData[element[0]] = element[1]
           asksTotal += Number(element[1])
         })
 
+        dispatch(
+          setAggregatedBidsObj({ bids: aggregatedBidsData, total: bidsTotal }),
+        )
+        dispatch(
+          setAggregatedAsksObj({ asks: aggregatedAsksData, total: asksTotal }),
+        )
         dispatch(setAllBidsObj({ bids: bidsData, total: bidsTotal }))
         dispatch(setAllAsksObj({ asks: asksData, total: asksTotal }))
+        dispatch(setDataLoading(false))
       }
 
       if (message.type === "l2update") {

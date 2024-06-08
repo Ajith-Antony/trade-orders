@@ -5,7 +5,13 @@ import Layout3 from "../../assets/layout3.png"
 import type { AskAggregates, BidAggregates } from "./orderBook.types"
 import cssClasses from "./orderbook.module.css"
 import type { SelectChangeEvent } from "@mui/material"
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material"
 import type { ReactNode } from "react"
 export const layoutData = [
   {
@@ -25,6 +31,7 @@ export const renderAggregates = (
   aggregates: BidAggregates | AskAggregates,
   type: "bids" | "asks",
   fullHeight: Boolean = false,
+  loading: Boolean = false,
 ) => {
   const keys =
     type === "bids"
@@ -32,33 +39,37 @@ export const renderAggregates = (
       : Object.keys(aggregates.asks)
   return (
     <ul
-      className={`${cssClasses.lists} ${fullHeight ? cssClasses.listsFull : ""}`}
+      className={`${cssClasses.lists} ${fullHeight ? cssClasses.listsFull : ""} ${loading ? cssClasses.listsLoading : ""}`}
     >
-      <Virtuoso
-        style={{
-          height: fullHeight ? "100%" : "252.5px",
-          overflowX: "hidden",
-        }}
-        totalCount={keys.length}
-        itemContent={index => {
-          const key = keys[index]
-          const item = aggregates[type][key]
-          return (
-            <li key={index}>
-              <span>{item}</span>
-              <span
-                className={
-                  type === "bids" ? cssClasses.bidItem : cssClasses.askItem
-                }
-              >
-                $ {String(key)}
-              </span>
-              <span>-</span>
-            </li>
-          )
-        }}
-        endReached={() => {}}
-      />
+      {loading ? (
+        <CircularProgress color="secondary" />
+      ) : (
+        <Virtuoso
+          style={{
+            height: fullHeight ? "100%" : "252.5px",
+            overflowX: "hidden",
+          }}
+          totalCount={keys.length}
+          itemContent={index => {
+            const key = keys[index]
+            const item = aggregates[type][key]
+            return (
+              <li key={index}>
+                <span>{item}</span>
+                <span
+                  className={
+                    type === "bids" ? cssClasses.bidItem : cssClasses.askItem
+                  }
+                >
+                  $ {String(key)}
+                </span>
+                <span>-</span>
+              </li>
+            )
+          }}
+          endReached={() => {}}
+        />
+      )}
     </ul>
   )
 }
@@ -70,8 +81,8 @@ export const getAggregation = (
 ) => (
   <div className={cssClasses.orderBookAggregate}>
     <div>Aggregation</div>
-    <FormControl sx={{ m: 1, minWidth: 75 }} size="small">
-      <InputLabel id="demo-select-small-label">Aggr.</InputLabel>
+    <FormControl sx={{ m: 1, minWidth: 75 }} size="small" id="select-wrap">
+      <InputLabel>Aggr.</InputLabel>
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"

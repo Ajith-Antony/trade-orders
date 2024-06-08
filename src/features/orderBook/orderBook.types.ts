@@ -15,6 +15,9 @@ export interface OrderBookState {
   aggregate: Number
   allBidsObj: BidAggregates
   allAsksObj: AskAggregates
+  aggregatedBidsObj: BidAggregates
+  aggregatedAsksObj: AskAggregates
+  dataLoading: Boolean
 }
 export interface AggregateData {
   [price: string]: string

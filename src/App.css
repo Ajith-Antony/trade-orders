@@ -26,7 +26,7 @@ code {
   margin-inline: auto;
   background-color: var(--primary-color);
   color: var(--text-color);
-  padding: 10px 20px;
+  padding: 0px 20px;
   justify-content: space-between;
 }
 .topWrap > div {
@@ -83,13 +83,18 @@ code {
   justify-content: space-around;
   align-items: center;
 }
-
-.css-1d3z3hw-MuiOutlinedInput-notchedOutline,
-.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root svg,
-.css-kszx2i-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root svg,
-.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root,
-.css-jedpe8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
-.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+#coin-select {
+  padding: 10px;
+}
+#demo-select-small {
+  padding: 5px;
+  font-size: 12px;
+}
+#select-wrap label,
+#select-wrap svg,
+#coin-select,
+#select-wrap fieldset,
+#demo-select-small {
   border-color: var(--text-color) !important;
   color: var(--text-color) !important;
 }
@@ -133,5 +138,9 @@ code {
   #tradingViewScript {
     min-height: 300px !important;
     border-radius: 15px;
+  }
+  .topWrap > div {
+    justify-content: space-between;
+    width: 100%;
   }
 }

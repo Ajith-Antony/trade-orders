@@ -3,9 +3,9 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import type { SelectChangeEvent } from "@mui/material/Select"
 import Select from "@mui/material/Select"
-import { resetChartData } from "./chart/chartSlice"
 import { useAppDispatch } from "../app/hooks"
-import { setAggregate } from "./orderBook/orderBookSlice"
+import { resetChartData } from "./chart/chartSlice"
+import { setAggregate, setDataLoading } from "./orderBook/orderBookSlice"
 
 interface CoinPairSelectProps {
   productId: string
@@ -20,11 +20,12 @@ const CoinPairSelect: React.FC<CoinPairSelectProps> = ({
   const handleProductChange = (event: SelectChangeEvent) => {
     dispatch(resetChartData())
     dispatch(setAggregate(0.01))
+    dispatch(setDataLoading(true))
     setProductId(event.target.value)
   }
   return (
-    <FormControl sx={{ m: 1, minWidth: 200 }}>
-      <InputLabel id="coin-select-label">Coin Pairs</InputLabel>
+    <FormControl sx={{ m: 1, minWidth: 200 }} id="select-wrap">
+      <InputLabel>Coin Pairs</InputLabel>
       <Select
         labelId="demo-select-small-label"
         id="coin-select"

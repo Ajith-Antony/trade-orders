@@ -10,9 +10,8 @@ import cssClasses from "./orderbook.module.css"
 const OrderBook: React.FC = () => {
   const dispatch = useAppDispatch()
   const [layout, setlayout] = useState(1)
-  const { allAsksObj, allBidsObj, aggregate } = useAppSelector(
-    (state: RootState) => state.orderBook,
-  )
+  const { aggregatedBidsObj, aggregatedAsksObj, aggregate, dataLoading } =
+    useAppSelector((state: RootState) => state.orderBook)
   const handleAggregateChange = (event: SelectChangeEvent<Number>) => {
     dispatch(setAggregate(Number(event.target.value)))
   }
@@ -45,10 +44,17 @@ const OrderBook: React.FC = () => {
           <span>My size</span>
         </div>
         {layout === 3
-          ? renderAggregates(allAsksObj, "asks", true)
-          : renderAggregates(allBidsObj, "bids", layout === 2)}
+          ? renderAggregates(aggregatedAsksObj, "asks", true, dataLoading)
+          : renderAggregates(
+              aggregatedBidsObj,
+              "bids",
+              layout === 2,
+              dataLoading,
+            )}
         {getAggregation(aggregate, handleAggregateChange)}
-        {layout === 1 ? renderAggregates(allAsksObj, "asks") : null}
+        {layout === 1
+          ? renderAggregates(aggregatedAsksObj, "asks", false, dataLoading)
+          : null}
       </div>
     </div>
   )
